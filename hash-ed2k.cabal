@@ -1,0 +1,57 @@
+Name: hash-ed2k
+Version: 1.0.0
+Cabal-Version: >= 1.2
+Build-Type: Simple
+License: BSD3
+License-File: COPYING
+Author: Philip Nilsson <pnilsson@nullref.se>
+Maintainer: Philip Nilsson <pnilsson@nullref.se>
+Synopsis: An implementation of the Ed2k hashing algorithm.
+Description:
+  This is an implemetation of the common Ed2k algorithm.
+  There is a variation of the algorithm that produces different
+  results, this module does not implement it.
+Category: Data, Cryptography
+
+Library
+  Exposed-Modules:
+    Crypto.Hash.Ed2k
+  Build-Depends:
+    base,
+    bytestring,
+    cereal,
+    crypto-api,
+    cryptohash,
+    tagged
+
+Test-Suite test-ed2k
+  Type: exitcode-stdio-1.0
+  Main-Is: Test/Ed2k.hs
+  Build-Depends:
+    HUnit,
+    test-framework,
+    test-framework-hunit
+
+-- Hashes using hash.
+Benchmark benchmark-lazy
+  Type: exitcode-stdio-1.0
+  Main-Is: Benchmark/Lazy.hs
+  GHC-Options: -O2
+
+-- Best-case result for benchmark-lazy.
+Benchmark benchmark-lazy-md4
+  Type: exitcode-stdio-1.0
+  Main-Is: Benchmark/LazyMD4.hs
+  GHC-Options: -O2
+
+-- Hashes using hash'.
+Benchmark benchmark-strict
+  Type: exitcode-stdio-1.0
+  Main-Is: Benchmark/Strict.hs
+  GHC-Options: -O2
+
+-- Best-case result for benchmark-strict.
+Benchmark benchmark-strict-md4
+  Type: exitcode-stdio-1.0
+  Main-Is: Benchmark/StrictMD4.hs
+  GHC-Options: -O2
