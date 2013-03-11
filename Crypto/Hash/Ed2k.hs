@@ -59,4 +59,4 @@ instance Hash Ctx Ed2k where
   finalize InitCtx           b            = Digest $ MD4.finalize $ MD4.update MD4.init b
   finalize (SingleCtx d)     b | B.null b = Digest $ d
   finalize ctx@(SingleCtx _) b            = finalize (appendHash ctx b) B.empty
-  finalize (MultiCtx ctx)    b            = Digest $ MD4.finalize $ MD4.update ctx b
+  finalize (MultiCtx ctx)    b            = Digest $ MD4.finalize $ MD4.update ctx (MD4.hash b)
